@@ -33,8 +33,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    // Habilitar middleware de Swagger en el entorno de desarrollo
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API v1");
+        c.RoutePrefix = string.Empty; // Hacer que Swagger UI esté disponible en la raíz (opcional)
+    });
 }
 // Configuración de endpoints o middlewares si es necesario
 app.UseHttpsRedirection();
